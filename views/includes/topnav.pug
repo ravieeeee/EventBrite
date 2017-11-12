@@ -1,0 +1,23 @@
+header
+	.container
+		nav.navbar.navbar-expand-md
+			a.navbar-brand(href="/") Eventbrite
+			#navbarNav3.collapse.navbar-collapse
+				ul.navbar-nav.ml-auto
+					li.nav-item.active
+						a.nav-link(href="/events/lists")
+							| Browse Events 
+							span.sr-only (current)
+					li.nav-item
+						a.nav-link(href="/users/settings") Settings
+					if (!currentUser)
+						li.nav-item
+							a.nav-link(href="/signup") Sign up
+						li.nav-item
+							a.nav-link(href="/signin") Sign in
+					else
+						li.nav-item
+							a.nav-link(href=`/users/${currentUser._id}`) My profile
+						li.nav-item
+							a.nav-link(href="/signout") Sign out
+				a.btn.btn-empty.ml-md-3(href="/events/create") Create Event

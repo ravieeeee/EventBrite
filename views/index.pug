@@ -1,0 +1,90 @@
+extends layout
+
+block content
+	.container
+		#carouselExampleSlidesOnly.carousel.slide(data-ride="carousel")
+			.carousel-inner
+				.carousel-item.active
+					img.d-block.w-100(src="images/slide1.jpg", alt="First slide")
+				.carousel-item
+					img.d-block.w-100(src="images/slide2.jpg", alt="Second slide")
+		.search-card
+			.search-card-msg
+				h3.col-12 Find your next experience
+			.search-bar
+				form.search-form(action="/d/", method="GET")
+					.input-group.search-bar-component
+						input.search-input.form-control(name="q", type="text", placeholder="Search events or categories", autocomplete="off", spellcheck="false", title="Search events or categories")
+					.input-group.show-large.g-cell--has-overflow.autocomplete-component.search-bar-component
+						input#consumer-header-event-location.js-location-input.form-control(name="loc", type="text", placeholder="City or location", autocomplete="off", spellcheck="false", value="Seoul, Republic of Korea", title="Enter city or location")
+					.search-bar-component
+						select#date-range.custom-select(name="date")
+							option(selected="") All Dates
+							option(value="today") Today
+							option(value="tomorrow") Tomorrow
+							option(value="this_week") This Week
+							option(value="this_weekend") This Weekend
+							option(value="next_week") Next Week
+							option(value="next_month") Next Month
+					.search-bar-component
+						button.btn.btn-light(type="button") SEARCH
+		.cards.col-12
+			.card-header.col-12
+				| Popular Events in 
+				span#user-location Seoul, Republic of Korea
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F35760326%2F94171908009%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C124%2C1600%2C800&s=0599d9e91577e80b43c95c94b15371ac", alt="Event card")
+				.card-body
+					p.card-date THU, OCT 12 10:00 AM
+					p.card-text Startup Token Asia Tour 2017 - Seoul Edition
+					p.card-location Seoul
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33642145%2F31287666225%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C0%2C2160%2C1080&s=1457cfe391e7f666be000406f047cc4e", alt="Event card")
+				.card-body
+					p.card-date THU, NOV 9 6:00 PM
+					p.card-text APSIA: Graduate School Fair, Seoul
+					p.card-location Millennium Seoul Hilton
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34893292%2F201289144405%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C49%2C1082%2C541&s=267304f3b7554534889e1c3983b9d4a6", alt="Event card")
+				.card-body
+					p.card-date THU, OCT 12 10:00 AM
+					p.card-text Innovations in AgTech (Seoul)
+					p.card-location WeWork Euljiro, Seoul
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F33274163%2F146322393799%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C86%2C2264%2C1132&s=279bae20298f86dbb13e501c3af37c15", alt="Event card")
+				.card-body
+					p.card-date FRI, OCT 27 6:00 PM
+					p.card-text Startup Weekend Incheon 2017 (EdTech)
+					p.card-location Incheon Global Campus
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F14532227%2F148509803227%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C39%2C604%2C302&s=493ba5f8fe38b80d1f11a2598516f961", alt="Event card")
+				.card-body
+					p.card-date SAT, AUG 4 7:00 PM
+					p.card-text Super Spectacular Korean Reunion
+					p.card-location Incheon
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F22687121%2F118420413631%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C0%2C1450%2C725&s=5187fd7e0d6d679c0e72ba221245665b", alt="Event card")
+				.card-body
+					p.card-date SUN, OCT 1 7:00 PM
+					p.card-text #GetHired through Hire51's Data Analytics Hiring Drive
+					p.card-location Virtual Event[Online Only]
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F35498413%2F187033152147%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C80%2C960%2C480&s=2e6d9bbeb9c8d90b87ae9cacbf2e43fa", alt="Event card")
+				.card-body
+					p.card-date SAT, OCT 14 9:00 AM
+					p.card-text Dwight School Seoul - Family Photos Day 2017
+					p.card-location The Gallery
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F35766434%2F118559409841%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C16%2C472%2C236&s=f3387f22b04aeee687dd879276292d04", alt="Event card")
+				.card-body
+					p.card-date FRI, SEP 29 2:00 PM
+					p.card-text Life Science Research Lab: Citizen Science & Nature in Seoul
+					p.card-location Ewha Womans University
+			.card.col
+				img.card-img-top(src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34943156%2F75554552429%2F1%2Foriginal.jpg?h=230&w=460&rect=0%2C50%2C600%2C300&s=625264a365e5e07f2316dc6529a7a9dc", alt="Event card")
+				.card-body
+					p.card-date FRI, NOV 3 6:00 PM
+					p.card-text LKY School of Public Poicy (NUS)
+					p.card-location Four Seasons Hotel Seoul
+			button.btn.btn-outline-primary(type="button") See More
+			

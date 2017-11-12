@@ -1,0 +1,27 @@
+extends layout
+
+//- 회원가입
+block content
+	section.fdb-block(style="background-image: url(../images/alt_wide_1.svg)")
+		.container
+			.row.justify-content-center
+				.col-12.col-md-8.col-lg-7.col-md-5.text-center
+					.fdb-box.fdb-touch
+						form(action='/users', method='POST')
+							.row
+								.col
+									h1 Register
+							.row
+								.col.mt-4
+									input.form-control(type="text", id='name', name='name', placeholder="Name")
+							.row.mt-4
+								.col
+									input.form-control(type="text", id='email', name='email', placeholder="Email")
+							.row.mt-4
+								.col
+									input.form-control.mb-1(type="password", id='password', name='password', placeholder="Password")
+									p.text-right
+										a(href="/signin") Already have an account?
+							.row.mt-4
+								.col
+									button.btn(type="submit") Submit

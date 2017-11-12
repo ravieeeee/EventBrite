@@ -1,0 +1,306 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 5, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../compass.app/lib/ruby/compass_1.0/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 12, ../sass/screen.scss */
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* line 16, ../sass/screen.scss */
+.navbar-light .navbar-brand {
+  color: #f6682F;
+  font-weight: bold;
+  margin-right: 1.3em;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/* line 27, ../sass/screen.scss */
+.container {
+  text-align: center;
+  max-width: 100%;
+  padding: 0;
+  position: relative;
+  /*background-color: #f4f6f9;*/
+}
+/* line 34, ../sass/screen.scss */
+.container #carouselExampleSlidesOnly {
+  z-index: 1;
+}
+/* line 37, ../sass/screen.scss */
+.container #carouselExampleSlidesOnly img {
+  height: 340px;
+}
+/* line 42, ../sass/screen.scss */
+.container .search-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  width: 80%;
+  margin: auto;
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  top: -5em;
+}
+/* line 52, ../sass/screen.scss */
+.container .search-card .search-card-msg {
+  color: #f6682F;
+  text-align: center;
+  font-size: 3.1em;
+  padding-top: 1.1em;
+}
+/* line 59, ../sass/screen.scss */
+.container .search-card .search-bar {
+  padding: 2.5em 0;
+}
+/* line 62, ../sass/screen.scss */
+.container .search-card .search-bar .input-group {
+  display: inline-block;
+}
+/* line 66, ../sass/screen.scss */
+.container .search-card .search-bar .search-bar-component {
+  display: inline-block;
+  width: 20%;
+}
+/* line 70, ../sass/screen.scss */
+.container .search-card .search-bar .search-bar-component .custom-select {
+  width: 100%;
+}
+/* line 75, ../sass/screen.scss */
+.container .search-card .search-bar .form-control {
+  width: 100%;
+}
+/* line 79, ../sass/screen.scss */
+.container .search-card .search-bar button {
+  background-color: #f6682F;
+  color: white;
+  font-weight: 600;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* line 94, ../sass/screen.scss */
+.container .cards {
+  position: relative;
+  top: -3em;
+  padding-top: 1em;
+  padding-bottom: 3.7em;
+  z-index: 1;
+  margin-bottom: 0;
+  display: block;
+  width: 100%;
+}
+/* line 104, ../sass/screen.scss */
+.container .cards #user-location {
+  color: #007f8c;
+  font-weight: bold;
+}
+/* line 109, ../sass/screen.scss */
+.container .cards .card {
+  margin: 1em;
+  display: inline-block;
+  width: 30%;
+  padding: 0;
+}
+/* line 115, ../sass/screen.scss */
+.container .cards .card img {
+  width: 100%;
+  height: 60%;
+}
+/* line 120, ../sass/screen.scss */
+.container .cards .card .card-date {
+  text-align: left;
+  font-size: 0.8em;
+}
+/* line 125, ../sass/screen.scss */
+.container .cards .card .card-text {
+  text-align: left;
+  font-weight: bold;
+}
+/* line 130, ../sass/screen.scss */
+.container .cards .card .card-location {
+  text-align: right;
+  color: #939496;
+  font-size: 0.9em;
+}
+/* line 137, ../sass/screen.scss */
+.container .cards .card-header {
+  font-size: 1.8em;
+  line-height: 25px;
+  font-weight: 400;
+  color: #666a73;
+  background-color: transparent;
+  border: none;
+  padding-bottom: 1.5em;
+}
+/* line 147, ../sass/screen.scss */
+.container .cards button {
+  margin-top: .8em;
+  margin-bottom: 4em;
+}
+/* line 152, ../sass/screen.scss */
+.container .cards h1 {
+  font-size: 1.6em;
+  margin-bottom: 1.2em;
+}
+/* line 158, ../sass/screen.scss */
+.container .cards .cards-by-categories .music, .container .cards .cards-by-categories .food, .container .cards .cards-by-categories .classes, .container .cards .cards-by-categories .arts, .container .cards .cards-by-categories .parties, .container .cards .cards-by-categories .sports, .container .cards .cards-by-categories .networking {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+/* line 164, ../sass/screen.scss */
+.container .cards .cards-by-categories .music, .container .cards .cards-by-categories .food, .container .cards .cards-by-categories .sports, .container .cards .cards-by-categories .networking {
+  height: 11em;
+}
+/* line 168, ../sass/screen.scss */
+.container .cards .cards-by-categories .classes, .container .cards .cards-by-categories .arts, .container .cards .cards-by-categories .parties {
+  height: 10em;
+}
+/* line 172, ../sass/screen.scss */
+.container .cards .cards-by-categories .music {
+  width: 55%;
+}
+/* line 175, ../sass/screen.scss */
+.container .cards .cards-by-categories .food {
+  width: 35%;
+}
+/* line 178, ../sass/screen.scss */
+.container .cards .cards-by-categories .classes {
+  width: 29.9%;
+}
+/* line 181, ../sass/screen.scss */
+.container .cards .cards-by-categories .arts {
+  width: 29.9%;
+}
+/* line 184, ../sass/screen.scss */
+.container .cards .cards-by-categories .parties {
+  width: 29.9%;
+}
+/* line 187, ../sass/screen.scss */
+.container .cards .cards-by-categories .sports {
+  width: 35%;
+}
+/* line 190, ../sass/screen.scss */
+.container .cards .cards-by-categories .networking {
+  width: 55%;
+}
+/* line 194, ../sass/screen.scss */
+.container .cards .cards-by-categories img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  /* default */
+  -o-transform: scale(1.1);
+  /*Opera*/
+  -moz-transform: scale(1.1);
+  /*FireFox*/
+  -webkit-transform: scale(1.1);
+  /*Chrome*/
+  transition: transform .45s;
+  -o-transition: transform .45s;
+  -moz-transition: transform .45s;
+  -webkit-transition: transform .45s;
+}
+/* line 207, ../sass/screen.scss */
+.container .cards .cards-by-categories .text-on-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4em;
+  color: white;
+}
+
+.footer {
+  padding-top: 1em;
+  color: #aaa;
+  border-top: .05rem solid #e5e5e5;
+  color: black;
+}
+
+header {
+  background-color: #FFFFFF; }
+  header .navbar-nav a.nav-link {
+    color: #777; }
+    header .navbar-nav a.nav-link:hover {
+      color: #528bff; }
+  header .navbar-nav .active a.nav-link {
+    color: #444444; }
+  header .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#444' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); }
+  header.bg-dark .navbar-nav a.nav-link {
+    color: #dcdcdc; }
+    header.bg-dark .navbar-nav a.nav-link:hover {
+      color: #528bff; }
+  header.bg-dark .navbar-nav .active a.nav-link {
+    color: #FFFFFF; }
+  header.bg-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#fff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); }
+
+header + header {
+  border-top: solid 1px #EEE; }
+
