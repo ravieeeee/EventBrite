@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  .fdb-block(style="padding: 0")
+    h1.main-title= event.title
+
+    dl.row
+      dt.col-sm-3 Location
+      dd.col-sm-9= event.location
+
+      dt.col-sm-3 Starts
+      dd.col-sm-9= event.starts
+
+      dt.col-sm-3 Ends
+      dd.col-sm-9= event.ends
+
+      dt.col-sm-3 Event Description
+      dd.col-sm-9= event.eventDescription
+
+      dt.col-sm-3 Organizer Name
+      dd.col-sm-9= event.organizerName
+
+      dt.col-sm-3 Organizer Description
+      dd.col-sm-9= event.organizerDescription
+
+      dt.col-sm-3 Event Type
+      dd.col-sm-9= event.eventType
+
+      dt.col-sm-3 Event Topic
+      dd.col-sm-9= event.eventTopic
+
+      dt.col-sm-3 Ticket Price
+      dd.col-sm-9= event.ticketPrice
+
+    hr
+    p
+      a.btn.btn-outline-primary(href=`/events/${event._id}/edit`) Edit
+    //-   | 
+    //-   a.btn.btn-outline-danger(href=`/events/${event._id}?_method=DELETE`) Delete

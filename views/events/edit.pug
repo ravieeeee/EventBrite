@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  .container
+    h1.main-title Event Update
+    form(action=`/events/${event._id}?_method=PUT`, method='POST')
+      .form-group
+        label(for='title') Title
+        input.form-control(type='text', id='title', name='title', value=event.title)
+      .form-group
+        label(for='location') Location
+        input.form-control(type='text', id='location', name='location', value=event.location)
+      .form-group
+        label(for='starts') Starts
+        input.form-control(type='datetime-local', id='starts', name='starts', value=event.starts)
+      .form-group
+        label(for='ends') Ends
+        input.form-control(type='datetime-local', id='ends', name='ends', value=event.ends)
+      .form-group
+        label(for='eventDescription') Event Description
+        input.form-control(type='text', id='eventDescription', name='eventDescription', value=event.eventDescription)
+      .form-group
+        label(for='organizerName') Organizer Name
+        input.form-control(type='text', id='organizerName', name='organizerName', value=event.organizerName)
+      .form-group
+        label(for='organizerDescription') Organizer Description
+        input.form-control(type='text', id='organizerDescription', name='organizerDescription', value=event.organizerDescription)
+      .form-group
+        label(for='eventType') Event Type
+        input.form-control(type='text', id='eventType', name='eventType', value=event.eventType)
+      .form-group
+        label(for='eventTopic') Event Topic
+        input.form-control(type='text', id='eventTopic', name='eventTopic', value=event.eventTopic)
+      .form-group
+        label(for='ticketPrice') Ticket Price
+        input.form-control(type='text', name='ticketPrice', value=event.ticketPrice)
+
+      a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+      | 
+      button.btn.btn-primary(type='submit') Update

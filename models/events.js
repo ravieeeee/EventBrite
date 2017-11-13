@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
+  author: { type: Schema.Types.ObjectId, ref: 'User'},
   title: {type: String, required: true},
   location: {type: String, required: true},
   starts: {type: Date, required: true},

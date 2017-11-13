@@ -33,8 +33,10 @@ router.get('/create', needAuth, function(req, res, next) {
 });
 
 // 'make event' 클릭 후
-router.post('/', (req, res, next) => {
+router.post('/', needAuth, (req, res, next) => {
+  const user = req.session.user;
   var newEvent = new Event({
+    author: user._id,
     title: req.body.title,
     location: req.body.location,
     starts: req.body.starts,
@@ -55,6 +57,45 @@ router.post('/', (req, res, next) => {
       res.redirect('/');
     }
   });
+});
+
+// 개별 event 페이지
+router.get('/:id', (req, res, next) => {
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      return next(err);
+    }
+    res.render('events/show', {event: event});
+  });
+});
+
+// 개별 event 페이지 - edit
+router.get('/:id/edit', needAuth, (req, res, next) => {
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      return next(err);
+    }
+    res.render('events/edit', {event: event});
+  });
+});
+
+// 'event update' 클릭 후
+router.put('/:id', needAuth, (req, res, next) => {
+  // User.findById({_id: req.params.id}, function(err, user) {
+  //   user.name = req.body.name;
+  //   user.email = req.body.email;
+  //   if (req.body.password) {
+  //     user.password = req.body.password;
+  //   }
+
+  //   user.save(function(err) {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //     req.flash('success', 'Updated successfully.');
+  //     res.redirect('/users');
+  //   });
+  // });
 });
 
 module.exports = router;

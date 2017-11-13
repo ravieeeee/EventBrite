@@ -14,7 +14,9 @@ block content
 			tbody
 				each event in events
 					tr
-						td= event.title
+						td 
+							a(href=`/events/${event._id}`)= event.title
+						//- td= event.title
 						td= event.location
 						td= event.starts
 						td= event.organizerName
