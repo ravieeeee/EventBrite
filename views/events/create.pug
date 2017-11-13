@@ -19,22 +19,22 @@ block content
 							h3 LOCATION
 							input.form-control(type="text", placeholder="location")
 					.row.align-items-center.mt-4
-						h3 STARTS
 						.col
-							input.form-control(type="date", placeholder="starts")
-						.col
-							input.form-control(type="time", placeholder="starts")
+							h3 STARTS
+							input.form-control(type="datetime-local", placeholder="starts")
 					.row.align-items-center.mt-4
-						h3 ENDS
 						.col
-							input.form-control(type="date", placeholder="ends")
-						.col
-							input.form-control(type="time", placeholder="ends")
+							h3 ENDS
+							input.form-control(type="datetime-local", placeholder="ends")
 					.row.align-items-center.mt-4
 						.col
 							h3 EVENT DESCRIPTION
-							form(method="post")
-							textarea#EventDescArea
+							input.form-control(type="text", placeholder="event description")
+					//- .row.align-items-center.mt-4
+					//- 	.col
+					//- 		h3 EVENT DESCRIPTION
+					//- 		form(method="post")
+					//- 		textarea#EventDescArea
 					.row.align-items-center.mt-4
 						.col
 							h3 ORGANIZER NAME
@@ -42,13 +42,16 @@ block content
 					.row.align-items-center.mt-4
 						.col
 							h3 ORGANIZER DESCRIPTION
-							form(method="post")
-							textarea#OrgDescArea
+							input.form-control(type="text", placeholder="organizer description")
+					//- .row.align-items-center.mt-4
+					//- 	.col
+					//- 		h3 ORGANIZER DESCRIPTION
+					//- 		form(method="post")
+					//- 		textarea#OrgDescArea
 					.row.align-items-center.mt-4
 						.col
 							h3 EVENT TYPE
 							select(name="eventType", size="1")
-								option(value="init") Select the type of event
 								option(value="Appearance or Signing") Appearance or Signing
 								option(value="Attraction") Attraction
 								option(value="Camp, Trip, or Retreat") Camp, Trip, or Retreat
@@ -73,7 +76,6 @@ block content
 						.col
 							h3 EVENT TOPIC
 							select(name="eventTopic", size="1")
-								option(value="init") Select a topic
 								option(value="Business & Professional") Business &amp; professional
 								option(value="Community & Culture") Community &amp; Culture
 								option(value="Family & Education") Family &amp; Education
