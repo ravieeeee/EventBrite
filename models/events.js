@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
-  title: {type: String, trim: true, required: true},
+  title: {type: String, required: true},
   location: {type: String, required: true},
   starts: {type: Date, required: true},
   ends: {type: Date, required: true},

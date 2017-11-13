@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
+var Event = require('../models/events');
 
 function needAuth(req, res, next) {
     if (req.session.user) {
@@ -11,8 +12,14 @@ function needAuth(req, res, next) {
     }
 }
 
+// 'browse event' 메인 
 router.get('/lists', function(req, res, next) {
-  res.render('events/lists');
+  Event.find({}, function(err, events) {
+    if (err) {
+      return next(err);
+    }
+    res.render('events/lists', {events: events});
+  }); // TODO: pagination?
 });
 
 router.get('/create', needAuth, function(req, res, next) {
