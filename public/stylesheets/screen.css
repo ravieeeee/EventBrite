@@ -72,14 +72,6 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 16, ../sass/screen.scss */
-.navbar-light .navbar-brand {
-  color: #f6682F;
-  font-weight: bold;
-  margin-right: 1.3em;
-  font-family: 'Ubuntu', sans-serif;
-}
-
 /* line 27, ../sass/screen.scss */
 .container {
   text-align: center;

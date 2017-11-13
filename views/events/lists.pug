@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 	.fdb-block(style="padding: 0")
-		h1.main-title Events
+		h1 Events
 		table.table.table-hover
 			thead
 				tr
@@ -16,7 +16,7 @@ block content
 					tr
 						td= event.title
 						td= event.location
-						td= moment(event.Starts).format('YYYY-MM-DD')
+						td= event.starts
 						td= event.organizerName
 						td= event.ticketPrice
 		a.btn.btn-primary(href='create') #[i.fa.fa-plus] Register a new event

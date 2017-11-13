@@ -5,93 +5,94 @@ block content
 		.container
 			.row.justify-content-center
 				.col-12.col-md-8.col-lg-8.col-xl-6
-					.row
-						.col.text-center
-							h1 Create new event
-							p.text-h3
-								| 새로운 이벤트를 등록하세요
-					.row.align-items-center
-						.col.mt-4
-							h3 EVENT TITLE
-							input.form-control(type="text", placeholder="title")
-					.row.align-items-center.mt-4
-						.col
-							h3 LOCATION
-							input.form-control(type="text", placeholder="location")
-					.row.align-items-center.mt-4
-						.col
-							h3 STARTS
-							input.form-control(type="datetime-local", placeholder="starts")
-					.row.align-items-center.mt-4
-						.col
-							h3 ENDS
-							input.form-control(type="datetime-local", placeholder="ends")
-					.row.align-items-center.mt-4
-						.col
-							h3 EVENT DESCRIPTION
-							input.form-control(type="text", placeholder="event description")
-					//- .row.align-items-center.mt-4
-					//- 	.col
-					//- 		h3 EVENT DESCRIPTION
-					//- 		form(method="post")
-					//- 		textarea#EventDescArea
-					.row.align-items-center.mt-4
-						.col
-							h3 ORGANIZER NAME
-							input.form-control(type="text", placeholder="organizer name")
-					.row.align-items-center.mt-4
-						.col
-							h3 ORGANIZER DESCRIPTION
-							input.form-control(type="text", placeholder="organizer description")
-					//- .row.align-items-center.mt-4
-					//- 	.col
-					//- 		h3 ORGANIZER DESCRIPTION
-					//- 		form(method="post")
-					//- 		textarea#OrgDescArea
-					.row.align-items-center.mt-4
-						.col
-							h3 EVENT TYPE
-							select(name="eventType", size="1")
-								option(value="Appearance or Signing") Appearance or Signing
-								option(value="Attraction") Attraction
-								option(value="Camp, Trip, or Retreat") Camp, Trip, or Retreat
-								option(value="Class, Training, or Workshop") Class, Training, or Workshop
-								option(value="Concert or Performance") Concert or Performance
-								option(value="Conference") Conference
-								option(value="Convention") Convention
-								option(value="Dinner or Gala") Dinner or Gala
-								option(value="Festival or Fair") Festival or Fair
-								option(value="Game or Competition") Game or Competition
-								option(value="Meeting or Networking Event") Meeting or Networking Event
-								option(value="Other") Other
-								option(value="Party or Social Gathering") Party or Social Gathering
-								option(value="Race or Endurance Event") Race or Endurance Event
-								option(value="Rally") Rally
-								option(value="Screening") Screening
-								option(value="Seminar or Talk") Seminar or Talk
-								option(value="Tour") Tour
-								option(value="Tournament") Tournament
-								option(value="Tradeshow, Consumer Show, or Expo") Tradeshow, Consumer Show, or Expo
-					.row.align-items-center.mt-4
-						.col
-							h3 EVENT TOPIC
-							select(name="eventTopic", size="1")
-								option(value="Business & Professional") Business &amp; professional
-								option(value="Community & Culture") Community &amp; Culture
-								option(value="Family & Education") Family &amp; Education
-								option(value="Fashion & Beauty") Fashion &amp; Beauty
-								option(value="Food & Drink") Food &amp; Drink
-								option(value="Music") Music
-								option(value="Sports") Sports
-					.row.align-items-center.mt-4
-						.col
-							h3 WHAT TYPE OF TICKET?
-							input(type="radio", name="ticket", value="free", checked="")
-							|	free&nbsp;
-							input(type="radio", name="ticket", value="paid")
-							|	paid
-							input.form-control(type="text", placeholder="price", id="ticketPrice")
-					.row.justify-content-start.mt-4
-						.col(style="margin-bottom: 1em")
-							button.btn.mt-4 Make Event
+					form(action='/events', method='POST')
+						.row
+							.col.text-center
+								h1 Create new event
+								p.text-h3
+									| 새로운 이벤트를 등록하세요
+						.row.align-items-center
+							.col.mt-4
+								h3 EVENT TITLE
+								input.form-control(type="text", placeholder="title", name="title")
+						.row.align-items-center.mt-4
+							.col
+								h3 LOCATION
+								input.form-control(type="text", placeholder="location", name="location")
+						.row.align-items-center.mt-4
+							.col
+								h3 STARTS
+								input.form-control(type="datetime-local", placeholder="starts", name="starts")
+						.row.align-items-center.mt-4
+							.col
+								h3 ENDS
+								input.form-control(type="datetime-local", placeholder="ends", name="ends")
+						.row.align-items-center.mt-4
+							.col
+								h3 EVENT DESCRIPTION
+								input.form-control(type="text", placeholder="event description", name="eventDescription")
+						//- .row.align-items-center.mt-4
+						//- 	.col
+						//- 		h3 EVENT DESCRIPTION
+						//- 		form(method="post")
+						//- 		textarea#EventDescArea
+						.row.align-items-center.mt-4
+							.col
+								h3 ORGANIZER NAME
+								input.form-control(type="text", placeholder="organizer name", name="organizerName")
+						.row.align-items-center.mt-4
+							.col
+								h3 ORGANIZER DESCRIPTION
+								input.form-control(type="text", placeholder="organizer description", name="organizerDescription")
+						//- .row.align-items-center.mt-4
+						//- 	.col
+						//- 		h3 ORGANIZER DESCRIPTION
+						//- 		form(method="post")
+						//- 		textarea#OrgDescArea
+						.row.align-items-center.mt-4
+							.col
+								h3 EVENT TYPE
+								select(name="eventType", size="1")
+									option(value="Appearance or Signing") Appearance or Signing
+									option(value="Attraction") Attraction
+									option(value="Camp, Trip, or Retreat") Camp, Trip, or Retreat
+									option(value="Class, Training, or Workshop") Class, Training, or Workshop
+									option(value="Concert or Performance") Concert or Performance
+									option(value="Conference") Conference
+									option(value="Convention") Convention
+									option(value="Dinner or Gala") Dinner or Gala
+									option(value="Festival or Fair") Festival or Fair
+									option(value="Game or Competition") Game or Competition
+									option(value="Meeting or Networking Event") Meeting or Networking Event
+									option(value="Other") Other
+									option(value="Party or Social Gathering") Party or Social Gathering
+									option(value="Race or Endurance Event") Race or Endurance Event
+									option(value="Rally") Rally
+									option(value="Screening") Screening
+									option(value="Seminar or Talk") Seminar or Talk
+									option(value="Tour") Tour
+									option(value="Tournament") Tournament
+									option(value="Tradeshow, Consumer Show, or Expo") Tradeshow, Consumer Show, or Expo
+						.row.align-items-center.mt-4
+							.col
+								h3 EVENT TOPIC
+								select(name="eventTopic", size="1")
+									option(value="Business & Professional") Business &amp; professional
+									option(value="Community & Culture") Community &amp; Culture
+									option(value="Family & Education") Family &amp; Education
+									option(value="Fashion & Beauty") Fashion &amp; Beauty
+									option(value="Food & Drink") Food &amp; Drink
+									option(value="Music") Music
+									option(value="Sports") Sports
+						.row.align-items-center.mt-4
+							.col
+								h3 WHAT TYPE OF TICKET?
+								input(type="radio", name="ticket", value="free", checked="")
+								|	free&nbsp;
+								input(type="radio", name="ticket", value="paid")
+								|	paid
+								input.form-control(type="text", placeholder="price", id="ticketPrice",name="ticketPrice")
+						.row.justify-content-start.mt-4
+							.col(style="margin-bottom: 1em")
+								button.btn.mt-4 Make Event
 
