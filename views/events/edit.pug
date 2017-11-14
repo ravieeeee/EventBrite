@@ -1,40 +1,98 @@
 extends ../layout
 
 block content
-  .container
-    h1.main-title Event Update
-    form(action=`/events/${event._id}?_method=PUT`, method='POST')
-      .form-group
-        label(for='title') Title
-        input.form-control(type='text', id='title', name='title', value=event.title)
-      .form-group
-        label(for='location') Location
-        input.form-control(type='text', id='location', name='location', value=event.location)
-      .form-group
-        label(for='starts') Starts
-        input.form-control(type='datetime-local', id='starts', name='starts', value=event.starts)
-      .form-group
-        label(for='ends') Ends
-        input.form-control(type='datetime-local', id='ends', name='ends', value=event.ends)
-      .form-group
-        label(for='eventDescription') Event Description
-        input.form-control(type='text', id='eventDescription', name='eventDescription', value=event.eventDescription)
-      .form-group
-        label(for='organizerName') Organizer Name
-        input.form-control(type='text', id='organizerName', name='organizerName', value=event.organizerName)
-      .form-group
-        label(for='organizerDescription') Organizer Description
-        input.form-control(type='text', id='organizerDescription', name='organizerDescription', value=event.organizerDescription)
-      .form-group
-        label(for='eventType') Event Type
-        input.form-control(type='text', id='eventType', name='eventType', value=event.eventType)
-      .form-group
-        label(for='eventTopic') Event Topic
-        input.form-control(type='text', id='eventTopic', name='eventTopic', value=event.eventTopic)
-      .form-group
-        label(for='ticketPrice') Ticket Price
-        input.form-control(type='text', name='ticketPrice', value=event.ticketPrice)
-
-      a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
-      | 
-      button.btn.btn-primary(type='submit') Update
+  section.fdb-block(style="padding: 0; background-image: url(../../images/bg_2.svg)")
+    .container
+      .row.justify-content-center
+        .col-12.col-md-8.col-lg-8.col-xl-6
+          form(action=`/events/${event._id}?_method=PUT`, method='POST')
+            .row
+              .col.text-center
+                h1 Update event
+                p.text-h3
+                  | 이벤트 수정
+            .row.align-items-center
+              .col.mt-4
+                h3 EVENT TITLE
+                input.form-control(type="text", name="title" value=event.title)
+            .row.align-items-center.mt-4
+              .col
+                h3 LOCATION
+                input.form-control(type="text", name="location", value=event.location)
+            .row.align-items-center.mt-4
+              .col
+                h3 STARTS
+                input.form-control(type="datetime-local", name="starts", value=event.starts)
+            .row.align-items-center.mt-4
+              .col
+                h3 ENDS
+                input.form-control(type="datetime-local", name="ends", value=event.ends)
+            .row.align-items-center.mt-4
+              .col
+                h3 EVENT DESCRIPTION
+                input.form-control(type="text", name="eventDescription", value=event.eventDescription)
+            //- .row.align-items-center.mt-4
+            //-   .col
+            //-     h3 EVENT DESCRIPTION
+            //-     form(method="post")
+            //-     textarea#EventDescArea
+            .row.align-items-center.mt-4
+              .col
+                h3 ORGANIZER NAME
+                input.form-control(type="text", name="organizerName", value=event.organizerName)
+            .row.align-items-center.mt-4
+              .col
+                h3 ORGANIZER DESCRIPTION
+                input.form-control(type="text", name="organizerDescription", value=event.organizerDescription)
+            //- .row.align-items-center.mt-4
+            //-   .col
+            //-     h3 ORGANIZER DESCRIPTION
+            //-     form(method="post")
+            //-     textarea#OrgDescArea
+            .row.align-items-center.mt-4
+              .col
+                h3 EVENT TYPE
+                select(name="eventType", size="1")
+                  option(value="Appearance or Signing") Appearance or Signing
+                  option(value="Attraction") Attraction
+                  option(value="Camp, Trip, or Retreat") Camp, Trip, or Retreat
+                  option(value="Class, Training, or Workshop") Class, Training, or Workshop
+                  option(value="Concert or Performance") Concert or Performance
+                  option(value="Conference") Conference
+                  option(value="Convention") Convention
+                  option(value="Dinner or Gala") Dinner or Gala
+                  option(value="Festival or Fair") Festival or Fair
+                  option(value="Game or Competition") Game or Competition
+                  option(value="Meeting or Networking Event") Meeting or Networking Event
+                  option(value="Other") Other
+                  option(value="Party or Social Gathering") Party or Social Gathering
+                  option(value="Race or Endurance Event") Race or Endurance Event
+                  option(value="Rally") Rally
+                  option(value="Screening") Screening
+                  option(value="Seminar or Talk") Seminar or Talk
+                  option(value="Tour") Tour
+                  option(value="Tournament") Tournament
+                  option(value="Tradeshow, Consumer Show, or Expo") Tradeshow, Consumer Show, or Expo
+            .row.align-items-center.mt-4
+              .col
+                h3 EVENT TOPIC
+                select(name="eventTopic", size="1")
+                  option(value="Business & Professional") Business &amp; professional
+                  option(value="Community & Culture") Community &amp; Culture
+                  option(value="Family & Education") Family &amp; Education
+                  option(value="Fashion & Beauty") Fashion &amp; Beauty
+                  option(value="Food & Drink") Food &amp; Drink
+                  option(value="Music") Music
+                  option(value="Sports") Sports
+            .row.align-items-center.mt-4
+              .col
+                h3 WHAT TYPE OF TICKET?
+                input(type="radio", name="ticketType", value="free", checked="")
+                | free&nbsp;
+                input(type="radio", name="ticketType", value="paid")
+                | paid
+                input.form-control(type="text", placeholder="price", id="ticketPrice",name="ticketPrice")
+                br
+                a.btn.btn-outline-secondary(href='javascript:window.history.back();')(style="margin: 1em 0") Back 
+                | 
+                button.btn.btn-primary(type='submit')(style="margin: 1em 0") Update

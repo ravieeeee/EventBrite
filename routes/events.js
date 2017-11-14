@@ -90,21 +90,34 @@ router.get('/:id/edit', needAuth, (req, res, next) => {
 
 // 'event update' 클릭 후
 router.put('/:id', needAuth, (req, res, next) => {
-  // User.findById({_id: req.params.id}, function(err, user) {
-  //   user.name = req.body.name;
-  //   user.email = req.body.email;
-  //   if (req.body.password) {
-  //     user.password = req.body.password;
-  //   }
+  var ticketP;
+  if (req.body.ticketType == 'free') {
+    ticketP = 0;
+  } else {
+    ticketP = req.body.ticketPrice;
+  }
 
-  //   user.save(function(err) {
-  //     if (err) {
-  //       return next(err);
-  //     }
-  //     req.flash('success', 'Updated successfully.');
-  //     res.redirect('/users');
-  //   });
-  // });
+  Event.findById({_id: req.params.id}, function(err, event) {
+    event.title = req.body.title;
+    event.location = req.body.location;
+    event.starts = req.body.starts;
+    event.ends = req.body.ends;
+    event.eventDescription = req.body.eventDescription;
+    event.organizerName = req.body.organizerName;
+    event.organizerDescription = req.body.organizerDescription;
+    event.eventType = req.body.eventType;
+    event.eventTopic = req.body.eventTopic;
+    event.ticketType = req.body.ticketType;
+    event.ticketPrice = ticketP;
+
+    event.save(function(err) {
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', 'Updated successfully.');
+      res.redirect('/events/lists');
+    });
+  });
 });
 
 module.exports = router;
