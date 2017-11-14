@@ -19,5 +19,8 @@ block content
 						td= event.location
 						td= event.starts
 						td= event.organizerName
-						td= event.ticketPrice
+						if event.ticketType!='free'
+							td= event.ticketPrice
+						else
+							td= event.ticketType
 		a.btn.btn-primary(href='create') #[i.fa.fa-plus] Register a new event
