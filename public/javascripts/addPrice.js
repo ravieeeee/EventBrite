@@ -1,6 +1,6 @@
 $(function() {
 	$('#ticketPrice').hide();
-	$("input[name='ticket']:radio").change(function() {
+	$("input[name='ticketType']:radio").change(function() {
 		var serviceType = this.value;
 
 		if (serviceType == "free") {

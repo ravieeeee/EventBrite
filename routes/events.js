@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var router = express.Router();
 var User = require('../models/users');
 var Event = require('../models/events');
@@ -35,6 +36,13 @@ router.get('/create', needAuth, function(req, res, next) {
 // 'make event' 클릭 후
 router.post('/', needAuth, (req, res, next) => {
   const user = req.session.user;
+  var ticketP;
+  if (req.body.ticketType == 'free') {
+    ticketP = 0;
+  } else {
+    ticketP = req.body.ticketPrice;
+  }
+
   var newEvent = new Event({
     author: user._id,
     title: req.body.title,
@@ -46,7 +54,8 @@ router.post('/', needAuth, (req, res, next) => {
     organizerDescription: req.body.organizerDescription,
     eventType: req.body.eventType,
     eventTopic: req.body.eventTopic,
-    ticketPrice: req.body.ticketPrice
+    ticketType: req.body.ticketType,
+    ticketPrice: ticketP
   });
 
   newEvent.save(function(err) {

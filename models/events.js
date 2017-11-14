@@ -13,6 +13,7 @@ var schema = new Schema({
   organizerDescription: {type: String, required: true},
   eventType: {type: String, required: true},
   eventTopic: {type: String, required: true},
+  ticketType: {type: String, required: true},
   ticketPrice: {type: Number, required: true}
 },{
   toJSON: {virtuals: true},
