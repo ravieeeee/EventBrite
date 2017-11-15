@@ -126,4 +126,15 @@ router.put('/:id', needAuth, (req, res, next) => {
   });
 });
 
+// event delete
+router.delete('/:id', needAuth, (req, res, next) => {
+  Event.findOneAndRemove({_id: req.params.id}, function(err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Deleted Successfully.');
+    res.redirect('/events/lists');
+  });
+});
+
 module.exports = router;
