@@ -14,7 +14,9 @@ var schema = new Schema({
   eventType: {type: String, required: true},
   eventTopic: {type: String, required: true},
   ticketType: {type: String, required: true},
-  ticketPrice: {type: Number, required: true}
+  ticketPrice: {type: Number, required: true},
+  participants: {type: Number, default: 0},
+  participantsList: [{type: Schema.Types.ObjectId, ref: 'User'}]
 },{
   toJSON: {virtuals: true},
   toObject: {virtuals: true}  

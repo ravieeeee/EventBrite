@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  .fdb-block(style="padding: 0")
+  .fdb-block(style="padding: 0; background-image: url(../../images/alt_wide_3.svg)")
     h1.main-title= user.name
           
     dl.row
@@ -12,8 +12,33 @@ block content
       dt.col-sm-3 Created At
       dd.col-sm-9= user.createdAt
 
-    hr
     p
-      a.btn.btn-outline-primary(href=`/users/${user._id}/edit`) Edit
+      a.btn.btn-black.btn-empty(href=`/users/${user._id}/edit`) Edit
       | 
-      a.btn.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`) Delete
+      a.btn.btn-black.btn-empty(href=`/users/${user._id}?_method=DELETE`) Delete
+
+    hr
+    h2 My events
+    table.table.table-hover
+      thead
+        tr
+          th Title
+          th Location
+          th Starts
+          th Organizer name
+          th Ticket price
+          th
+      tbody
+        each event in events
+          tr
+            td 
+              a(href=`/events/${event._id}/admin`)= event.title
+            td= event.location
+            td #{moment(event.starts).format('YYYY-MM-DD')}
+            td= event.organizerName
+            if event.ticketType!='free'
+              td= event.ticketPrice
+            else
+              td= event.ticketType
+            td
+              a.btn.btn-black.btn-empty(href=`/events/${event._id}/participantsList`) participants list

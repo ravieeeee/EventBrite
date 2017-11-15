@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
+var Event = require('../models/events');
 
 function needAuth(req, res, next) {
     if (req.session.user) {
@@ -45,12 +46,18 @@ router.get('/settings', needAuth, function(req, res, next) {
   }); // TODO: pagination?
 });
 
+// My profile
 router.get('/:id', (req, res, next) => {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    res.render('users/show', {user: user});
+    Event.find({author: user.id}, function(err, events) {
+      if (err) {
+        return next(err);
+      }
+      res.render('users/show', {user: user, events: events});
+    });
   });
 });
 

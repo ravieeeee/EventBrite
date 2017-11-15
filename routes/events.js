@@ -137,4 +137,50 @@ router.delete('/:id', needAuth, (req, res, next) => {
   });
 });
 
+// 참가 신청
+// 참가자 수만 증가시키는 상태.
+// 참여자 정보 받아와야 함
+router.get('/:id/participate', needAuth, (req, res, next) => {
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      return next(err);
+    }
+    event.participants++;
+    event.participantsList.push(req.session.user.id);
+    event.save(function(err) {
+      if (err) {
+        return next(err);
+      } else {
+        req.flash('success', 'Complete register.');
+        res.redirect('back');
+      }
+    });
+  });
+});
+
+// 이벤트 등록자의 이벤트 관리
+router.get('/:id/admin', (req, res, next) => {
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      return next(err);
+    }
+    res.render('events/show_admin', {event: event});
+  })
+})
+
+// 이벤트 등록자의 참가자 리스트 확인
+router.get('/:id/participantsList', (req, res, next) => {
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      return next(err);
+    }
+    User.find({_id: event.participantsList}, function(err, users) {
+      if (err) {
+        return next(err);
+      }
+      res.render('events/show_admin_pL', {users: users});
+    })
+  })
+})
+
 module.exports = router;

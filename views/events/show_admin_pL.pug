@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+	.fdb-block(style="padding: 0; background-image: url(../../images/alt_wide_3.svg)")
+		h1.main-title Participants
+    
+		table.table.table-hover
+			thead
+				tr
+					th Name
+					th Email
+			tbody
+				each user in users
+					tr
+						td= user.name
+						td= user.email
+						
