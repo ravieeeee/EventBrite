@@ -5,14 +5,17 @@ block content
     h1.main-title= event.title
 
     dl.row
+      dt.col-sm-3 Author
+      dd.col-sm-9= user.email
+
       dt.col-sm-3 Location
       dd.col-sm-9= event.location
 
       dt.col-sm-3 Starts
-      dd.col-sm-9= event.starts
+      dd.col-sm-9 #{moment(event.starts).format('YYYY-MM-DD HH:MM')}
 
       dt.col-sm-3 Ends
-      dd.col-sm-9= event.ends
+      dd.col-sm-9 #{moment(event.ends).format('YYYY-MM-DD HH:MM')}
 
       dt.col-sm-3 Event Description
       dd.col-sm-9= event.eventDescription

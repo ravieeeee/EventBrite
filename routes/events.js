@@ -74,7 +74,13 @@ router.get('/:id', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.render('events/show', {event: event});
+
+    User.findById(event.author, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      res.render('events/show', {event: event, user: user});
+    })
   });
 });
 
