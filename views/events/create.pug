@@ -92,6 +92,14 @@ block content
 								input(type="radio", name="ticketType", value="paid")
 								|	paid
 								input.form-control(type="text", placeholder="price", id="ticketPrice",name="ticketPrice")
+						.row.align-items-center.mt-4
+							.col
+								h3 MAX PARTICIPANTS
+								input(type="radio", name="maxParticipantsType", value="no consideration", checked="")
+								|	no consideration&nbsp;
+								input(type="radio", name="maxParticipantsType", value="set the value")
+								|	set the value
+								input.form-control(type="text", placeholder="max participants", id="maxParticipants", name="maxParticipants")
 						.row.justify-content-start.mt-4
 							.col(style="margin-bottom: 1em")
 								button.btn.btn-black.btn-empty Make Event

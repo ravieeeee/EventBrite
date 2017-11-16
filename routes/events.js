@@ -43,6 +43,13 @@ router.post('/', needAuth, (req, res, next) => {
     ticketP = req.body.ticketPrice;
   }
 
+  var maxP;
+  if (req.body.maxParticipantsType == 'no consideration') {
+    maxP = 0;
+  } else {
+    maxP = req.body.maxParticipants;
+  }
+
   var newEvent = new Event({
     author: user._id,
     title: req.body.title,
@@ -55,7 +62,9 @@ router.post('/', needAuth, (req, res, next) => {
     eventType: req.body.eventType,
     eventTopic: req.body.eventTopic,
     ticketType: req.body.ticketType,
-    ticketPrice: ticketP
+    ticketPrice: ticketP,
+    maxParticipantsType: req.body.maxParticipantsType,
+    maxParticipants: maxP
   });
 
   newEvent.save(function(err) {
@@ -143,6 +152,11 @@ router.get('/:id/participate', needAuth, (req, res, next) => {
       return next(err);
     }
     event.participants++;
+    if (event.maxParticipantsType == 'set the value' 
+      && event.maxParticipants < event.participants) {
+      req.flash('danger', 'The event is full');
+      return res.redirect('back');
+    }
     event.participantsList.push(req.session.user.id);
     event.save(function(err) {
       if (err) {

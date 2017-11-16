@@ -37,6 +37,12 @@ block content
 
       dt.col-sm-3 Participants
       dd.col-sm-9= event.participants
+
+      dt.col-sm-3 Max Participants
+      if event.maxParticipantsType=='no consideration'
+        dd.col-sm-9= event.maxParticipantsType
+      else
+        dd.col-sm-9= event.maxParticipants
     hr
     p
       a.btn.btn-black.btn-empty(href=`/events/${event._id}/edit`) Edit
