@@ -12,6 +12,15 @@ function needAuth(req, res, next) {
     }
 }
 
+function isAdmin(req, res, next) {
+  if (req.session.user && req.session.user.name == 'admin') {
+    next();
+  } else {
+    req.flash('danger', 'no access');
+    res.redirect('back');
+  }
+}
+
 function validateForm(form, options) {
   var name = form.name || "";
   var email = form.email || "";
@@ -37,7 +46,7 @@ function validateForm(form, options) {
   return null;
 }
 
-router.get('/settings', needAuth, function(req, res, next) {
+router.get('/settings', isAdmin, function(req, res, next) {
   User.find({}, function(err, users) {
     if (err) {
       return next(err);

@@ -137,9 +137,6 @@ router.delete('/:id', needAuth, (req, res, next) => {
   });
 });
 
-// 참가 신청
-// 참가자 수만 증가시키는 상태.
-// 참여자 정보 받아와야 함
 router.get('/:id/participate', needAuth, (req, res, next) => {
   Event.findById(req.params.id, function(err, event) {
     if (err) {

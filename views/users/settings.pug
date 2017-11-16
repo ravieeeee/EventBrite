@@ -19,9 +19,9 @@ block content
 						td= user.email
 						td= moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss')
 						td
-							a.btn.btn-sm.btn-outline-secondary(href=`/users/${user._id}/edit`) 
+							a.btn.btn-black.btn-empty(href=`/users/${user._id}/edit`) 
 								| #[i.fa.fa-pencil] Edit
 							| 
-							a.btn.btn-sm.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`)
+							a.btn.btn-black.btn-empty(href=`/users/${user._id}?_method=DELETE`)
 								| #[i.fa.fa-trash] Delete
-		a.btn.btn-primary(href='/signup') #[i.fa.fa-plus] Register a new user
+		a.btn.btn-black.btn-empty(href='/signup') #[i.fa.fa-plus] Register a new user
