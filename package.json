@@ -2,8 +2,12 @@
   "name": "eventbrite",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "8.7.0",
+    "npm": "5.4.2"
+  },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "async-error-catcher": "^1.0.1",

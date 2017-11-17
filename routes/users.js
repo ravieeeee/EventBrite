@@ -130,7 +130,7 @@ router.delete('/:id', needAuth, (req, res, next) => {
       return next(err);
     }
     req.flash('success', 'Deleted Successfully.');
-    res.redirect('/users/settings');
+    res.redirect('/');
   });
 });
 
