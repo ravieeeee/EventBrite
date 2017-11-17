@@ -26,7 +26,7 @@ app.locals.querystring = require('querystring');
 // mongodb connect
 mongoose.Promise = global.Promise;
 // const connStr = 'mongodb://localhost/mjdb';
-const connStr = 'mongodb://<dbuser>:<dbpassword>@ds147872.mlab.com:47872/eventips_db';
+const connStr = 'mongodb://admin:adminthis@ds147872.mlab.com:47872/eventips_db';
 mongoose.connect(connStr, {useMongoClient: true});
 mongoose.connection.on('error', console.error);
 
