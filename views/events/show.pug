@@ -3,7 +3,7 @@ extends ../layout
 block content
   .fdb-block(style="padding: 0; background-image: url(../../images/alt_wide_1.svg)")
     h1.main-title= event.title
-
+    
     dl.row
       dt.col-sm-3 Author
       dd.col-sm-9= user.email
@@ -50,3 +50,4 @@ block content
     hr
     p
       a.btn.btn-black.btn-empty(href=`/events/${event._id}/participate`) Participate
+      a.btn.btn-yellow.btn-empty(href=`/events/${event._id}/favorite`) Favorite

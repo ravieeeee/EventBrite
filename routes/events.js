@@ -169,6 +169,28 @@ router.get('/:id/participate', needAuth, (req, res, next) => {
   });
 });
 
+router.get('/:id/favorite', needAuth, (req, res, next) => {
+  Event.findById(req.params.id, function(err, event) {
+    if (err) {
+      return next(err);
+    }
+    User.findById(req.session.user.id, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      user.favorite.push(event._id);
+      user.save(function(err) {
+        if (err) {
+          return next(err);
+        } else {
+          req.flash('success', 'added favorite list.');
+          res.redirect('back');
+        }
+      })
+    })
+  })
+});
+
 // 이벤트 등록자의 이벤트 관리
 router.get('/:id/admin', (req, res, next) => {
   Event.findById(req.params.id, function(err, event) {

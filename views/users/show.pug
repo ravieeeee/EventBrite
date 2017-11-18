@@ -29,7 +29,7 @@ block content
           th Ticket price
           th
       tbody
-        each event in events
+        each event in myEvents
           tr
             td 
               a(href=`/events/${event._id}/admin`)= event.title
@@ -42,3 +42,28 @@ block content
               td= event.ticketType
             td
               a.btn.btn-black.btn-empty(href=`/events/${event._id}/participantsList`) participants list
+
+    hr
+    h2 Favorite
+    table.table.table-hover
+      thead
+        tr
+          th Title
+          th Location
+          th Starts
+          th Organizer name
+          th Ticket price
+          th
+      tbody
+        each fEvent in fEvents
+          tr
+            td 
+              a(href=`/events/${fEvent._id}`)= fEvent.title
+            td= fEvent.location
+            td #{moment(fEvent.starts).format('YYYY-MM-DD')}
+            td= fEvent.organizerName
+            if fEvent.ticketType!='free'
+              td= fEvent.ticketPrice
+            else
+              td= fEvent.ticketType
+            

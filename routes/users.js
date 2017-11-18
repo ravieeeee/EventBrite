@@ -61,11 +61,16 @@ router.get('/:id', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    Event.find({author: user.id}, function(err, events) {
+    Event.find({author: user.id}, function(err, myEvents) {
       if (err) {
         return next(err);
       }
-      res.render('users/show', {user: user, events: events});
+      Event.find({_id: user.favorite}, function(err, fEvents) {
+        if (err) {
+          return next(err);
+        }
+        res.render('users/show', {user: user, myEvents: myEvents, fEvents: fEvents});
+      });
     });
   });
 });
