@@ -9,10 +9,10 @@ block content
       dd.col-sm-9= event.location
 
       dt.col-sm-3 Starts
-      dd.col-sm-9 #{moment(event.starts).format('YYYY-MM-DD HH:MM')}
+      dd.col-sm-9 #{moment(event.starts).format('MMMM Do YYYY, h:mm:ss a')}
 
       dt.col-sm-3 Ends
-      dd.col-sm-9 #{moment(event.ends).format('YYYY-MM-DD HH:MM')}
+      dd.col-sm-9 #{moment(event.ends).format('MMMM Do YYYY, h:mm:ss a')}
 
       dt.col-sm-3 Event Description
       dd.col-sm-9= event.eventDescription

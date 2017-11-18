@@ -17,7 +17,7 @@ block content
 						td 
 							a(href=`/events/${event._id}`)= event.title
 						td= event.location
-						td #{moment(event.starts).format('YYYY-MM-DD')}
+						td #{moment(event.starts).format("MMM Do YY")}
 						td= event.organizerName
 						if event.ticketType!='free'
 							td= event.ticketPrice
