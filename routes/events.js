@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var User = require('../models/users');
 var Event = require('../models/events');
+var momentTZ = require('moment-timezone');
 
 function needAuth(req, res, next) {
     if (req.session.user) {

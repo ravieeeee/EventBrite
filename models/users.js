@@ -11,7 +11,7 @@ var schema = new Schema({
   favorite: [{type: Schema.Types.ObjectId, ref: 'Event'}]
 }, {
   toJSON: {virtuals: true},
-  toObject: {virtuals: true}
+  toObject: {virtuals: true},
 });
 
 
