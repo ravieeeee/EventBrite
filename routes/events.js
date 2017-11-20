@@ -113,6 +113,13 @@ router.put('/:id', needAuth, (req, res, next) => {
     ticketP = req.body.ticketPrice;
   }
 
+  var maxP;
+  if (req.body.maxParticipantsType == 'no consideration') {
+    maxP = 0;
+  } else {
+    maxP = req.body.maxParticipants;
+  }
+
   Event.findById({_id: req.params.id}, function(err, event) {
     event.title = req.body.title;
     event.location = req.body.location;
@@ -124,7 +131,9 @@ router.put('/:id', needAuth, (req, res, next) => {
     event.eventType = req.body.eventType;
     event.eventTopic = req.body.eventTopic;
     event.ticketType = req.body.ticketType;
-    event.ticketPrice = ticketP;
+    event.ticketPrice = ticketP,
+    event.maxParticipantsType = req.body.maxParticipantsType,
+    event.maxParticipants = maxP;
 
     event.save(function(err) {
       if (err) {

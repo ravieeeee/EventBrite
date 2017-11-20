@@ -92,7 +92,16 @@ block content
                 input(type="radio", name="ticketType", value="paid")
                 | paid
                 input.form-control(type="text", placeholder="price", id="ticketPrice",name="ticketPrice")
+            .row.align-items-center.mt-4
+              .col
+                h3 MAX PARTICIPANTS
+                input(type="radio", name="maxParticipantsType", value="no consideration", checked="")
+                | no consideration&nbsp;
+                input(type="radio", name="maxParticipantsType", value="set the value")
+                | set the value
+                input.form-control(type="text", placeholder="max participants", id="maxParticipants", name="maxParticipants")
                 br
                 a.btn.btn-outline-secondary(href='javascript:window.history.back();')(style="margin: 1em 0") Back 
                 | 
                 button.btn.btn-primary(type='submit')(style="margin: 1em 0") Update
+            
