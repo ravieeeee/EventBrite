@@ -7,67 +7,24 @@ block content
 	script(src="/javascripts/moment.min.js")
 	script(src="/javascripts/fullcalendar.js")
 	script.
-		$(document).ready(function() {
-			$('#calendar').fullCalendar({
-				editable: true,
-				eventLimit: true, // allow "more" link when too many events
-				events: [
-					{
-					title: 'All Day Event',
-					start: '2017-11-01'
-					},
-					{
-					title: 'Long Event',
-					start: '2017-11-07',
-					end: '2017-11-10'
-					},
-					{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2017-11-09T16:00:00'
-					},
-					{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2017-11-16T16:00:00'
-					},
-					{
-					title: 'Conference',
-					start: '2017-11-11',
-					end: '2017-11-13'
-					},
-					{
-					title: 'Meeting',
-					start: '2017-11-12T10:30:00',
-					end: '2017-11-12T12:30:00'
-					},
-					{
-					title: 'Lunch',
-					start: '2017-11-12T12:00:00'
-					},
-					{
-					title: 'Meeting',
-					start: '2017-11-12T14:30:00'
-					},
-					{
-					title: 'Happy Hour',
-					start: '2017-11-12T17:30:00'
-					},
-					{
-					title: 'Dinner',
-					start: '2017-11-12T20:00:00'
-					},
-					{
-					title: 'Birthday Party',
-					start: '2017-11-13T07:00:00'
-					},
-					{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2017-11-28'
-					}
-				]
-			});
+		$.ajax({
+			url: "https://api.mlab.com/api/1/databases/eventips_db/collections/events?f={%22title%22:1,%22starts%22:1,%22ends%22:1,%22_id%22:0}&apiKey=lRad9en4x9bx79b9Wi6-Cn26eloZipKL",
+			dataType: 'json',
+			success: function(data) {
+				for (let i = 0; i < data.length; i++) {
+					data[i].start = data[i].starts.$date;
+					data[i].end = data[i].ends.$date;
+					delete data[i].starts;
+					delete data[i].ends;
+				}
+				$(document).ready(function() {
+					$('#calendar').fullCalendar({
+						editable: true,
+						eventLimit: true, // allow "more" link when too many events
+						events: data
+					});
+				});
+			}
 		});
 
 	//- body	
