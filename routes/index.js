@@ -1,10 +1,17 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
+var Event = require('../models/events');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Event.find({}, function(err, allEvents) {
+    if (err) {
+      return next(err);
+    }
+    // console.log(allEvents);
+    res.render('index', {allEvents: allEvents, title: 'Express'});
+  });
 });
 
 router.get('/signin', function(req, res, next) {

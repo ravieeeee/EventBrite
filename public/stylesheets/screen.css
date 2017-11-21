@@ -100,14 +100,15 @@ body {
 }
 /* line 52, ../sass/screen.scss */
 .container .search-card .search-card-msg {
-  color: #f6682F;
   text-align: center;
   font-size: 3.1em;
   padding-top: 1.1em;
+  color: #444444;
 }
 /* line 59, ../sass/screen.scss */
 .container .search-card .search-bar {
   padding: 2.5em 0;
+  color: #528bff;
 }
 /* line 62, ../sass/screen.scss */
 .container .search-card .search-bar .input-group {
@@ -126,21 +127,12 @@ body {
 .container .search-card .search-bar .form-control {
   width: 100%;
 }
-/* line 79, ../sass/screen.scss */
-.container .search-card .search-bar button {
-  background-color: #f6682F;
-  color: white;
-  font-weight: 600;
-  box-sizing: border-box;
-  width: 100%;
-}
 
 /* line 94, ../sass/screen.scss */
 .container .cards {
   position: relative;
   top: -3em;
   padding-top: 1em;
-  padding-bottom: 3.7em;
   z-index: 1;
   margin-bottom: 0;
   display: block;
@@ -148,7 +140,7 @@ body {
 }
 /* line 104, ../sass/screen.scss */
 .container .cards #user-location {
-  color: #007f8c;
+  color: #528bff;
   font-weight: bold;
 }
 /* line 109, ../sass/screen.scss */
