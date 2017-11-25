@@ -1,5 +1,5 @@
-# EventBrite
-2017-2 웹프로그래밍 과제로, 로컬 이벤트를 등록하고 사용자가 이 이벤트에 참가 신청을 할 수 있는 EventBrite와 유사한 웹사이트이다.
+# Eventips
+이벤트를 등록하고 사용자가 이 이벤트에 참가 신청을 할 수 있는 EventBrite와 유사한 웹사이트
 
 ## Requirements
 **사용자**
@@ -43,8 +43,11 @@
 
 **기타 기능**
 
-1. (Option) 후기 기능. 사용자는 이벤트에 대한 후기/질의를 남길 수 있고 등록자는 후기에 답변을 달 수 있다.
-2. (Option) 이벤트 추천보기: 이벤트 후기, 참여자 수, 지역, 등에 의한 추천기능
-3. (Option) Favorite 기능: 이벤트를 Favorite에 추가. 자신의 Favorite 목록 확인 가능
-4. (Option) Responsive Design
-5. (Option) Ajax 기술, 혹은 WebSocket 기술을 활용
+1. 반드시 nodejs, express, mongodb를 사용해야 함.
+2. 모든 최신 브라우져(IE, Safari, Chrome, Firefox)에서 무리 없이 사용할 수 있어야 함.
+3. 과제의 결과물을 웹에서 확인 가능해야 함.
+4. (Option) 후기 기능. 사용자는 이벤트에 대한 후기/질의를 남길 수 있고 등록자는 후기에 답변을 달 수 있다.
+5. (Option) 이벤트 추천보기: 이벤트 후기, 참여자 수, 지역, 등에 의한 추천기능
+6. (Option) Favorite 기능: 이벤트를 Favorite에 추가. 자신의 Favorite 목록 확인 가능
+7. (Option) Responsive Design
+8. (Option) Ajax 기술, 혹은 WebSocket 기술을 활용
