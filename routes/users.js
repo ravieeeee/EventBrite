@@ -47,6 +47,7 @@ function validateForm(form, options) {
   return null;
 }
 
+// 관리자
 router.get('/settings', isAdmin, function(req, res, next) {
   User.find({}, function(err, users) {
     if (err) {
@@ -76,7 +77,7 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-// 관리자
+// edit 적용
 router.put('/:id', needAuth, (req, res, next) => {
   var err = validateForm(req.body);
   if (err) {
@@ -131,19 +132,20 @@ router.get('/:id/edit', needAuth, (req, res, next) => {
 });
 
 router.delete('/:id', needAuth, (req, res, next) => {
-  User.findOneAndRemove({_id: req.params.id}, function(err) {
+  User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
+    user.deleteCheck = 1;
     req.session.user = null;
-    req.flash('success', 'Deleted Successfully.');
-    res.redirect('/');
+    user.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+        req.flash('success', 'Deleted Successfully.');
+        res.redirect('/');
+    });
   });
-});
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
 });
 
 router.post('/', (req, res, next) => {

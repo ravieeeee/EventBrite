@@ -8,7 +8,8 @@ var schema = new Schema({
   email: {type: String, required: true, index: true, unique: true, trim: true},
   password: {type: String},
   createdAt: {type: Date, default: Date.now},
-  favorite: [{type: Schema.Types.ObjectId, ref: 'Event'}]
+  favorite: [{type: Schema.Types.ObjectId, ref: 'Event'}],
+  deleteCheck : {type: Number, required: true, default: 0}
 }, {
   toJSON: {virtuals: true},
   toObject: {virtuals: true},

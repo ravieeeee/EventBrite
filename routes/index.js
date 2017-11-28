@@ -19,7 +19,6 @@ router.get('/signin', function(req, res, next) {
 });
 
 router.post('/signin', function(req, res, next) {
-
   User.findOne({email: req.body.email}, function(err, user) {
     if (err) {
       res.render('error', {message: "Error", error: err});
@@ -32,6 +31,9 @@ router.post('/signin', function(req, res, next) {
         res.redirect('back');
       } else if (!isMatch) {
         req.flash('danger','Invalid password');
+        res.redirect('back');
+      } else if (user.deleteCheck == 1) {
+        req.flash('danger', 'You are quit this!');
         res.redirect('back');
       }
       else {
