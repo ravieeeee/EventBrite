@@ -135,6 +135,7 @@ router.delete('/:id', needAuth, (req, res, next) => {
     if (err) {
       return next(err);
     }
+    req.session.user = null;
     req.flash('success', 'Deleted Successfully.');
     res.redirect('/');
   });
