@@ -1,24 +1,24 @@
-var express = require('express');
-var momentTZ = require('moment-timezone');
+var express = require("express");
+var momentTZ = require("moment-timezone");
 var router = express.Router();
-var User = require('../models/users');
-var Event = require('../models/events');
+var User = require("../models/users");
+var Event = require("../models/events");
 
 function needAuth(req, res, next) {
-    if (req.session.user) {
-      next();
-    } else {
-      req.flash('danger', 'Please signin first.');
-      res.redirect('/signin');
-    }
+  if (req.session.user) {
+    next();
+  } else {
+    req.flash("danger", "Please signin first.");
+    res.redirect("/signin");
+  }
 }
 
 function isAdmin(req, res, next) {
-  if (req.session.user && req.session.user.name == 'admin') {
+  if (req.session.user && req.session.user.name == "admin") {
     next();
   } else {
-    req.flash('danger', 'no access');
-    res.redirect('back');
+    req.flash("danger", "no access");
+    res.redirect("back");
   }
 }
 
@@ -29,69 +29,73 @@ function validateForm(form, options) {
   email = email.trim();
 
   if (!name) {
-    return 'Name is required.';
+    return "Name is required.";
   }
 
   if (!email) {
-    return 'Email is required.';
+    return "Email is required.";
   }
 
   if (!form.password) {
-    return 'Password is required.';
+    return "Password is required.";
   }
 
   if (form.password.length < 6) {
-    return 'Password must be at least 6 characters.';
+    return "Password must be at least 6 characters.";
   }
 
   return null;
 }
 
 // 관리자
-router.get('/settings', isAdmin, function(req, res, next) {
+router.get("/settings", isAdmin, function(req, res, next) {
   User.find({}, function(err, users) {
     if (err) {
       return next(err);
     }
-    res.render('users/settings', {users: users});
+    res.render("users/settings", { users: users });
   }); // TODO: pagination?
 });
 
 // My profile
-router.get('/:id', (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    Event.find({author: user.id}, function(err, myEvents) {
+    Event.find({ author: user.id }, function(err, myEvents) {
       if (err) {
         return next(err);
       }
-      Event.find({_id: user.favorite}, function(err, fEvents) {
+      Event.find({ _id: user.favorite }, function(err, fEvents) {
         if (err) {
           return next(err);
         }
-        res.render('users/show', {user: user, myEvents: myEvents, fEvents: fEvents});
+        res.render("users/show", {
+          user: user,
+          myEvents: myEvents,
+          fEvents: fEvents
+        });
       });
     });
   });
 });
 
 // edit 적용
-router.put('/:id', needAuth, (req, res, next) => {
+router.put("/:id", needAuth, (req, res, next) => {
   var err = validateForm(req.body);
   if (err) {
-    req.flash('danger', err);
-    return res.redirect('back');
+    req.flash("danger", err);
+    return res.redirect("back");
   }
 
-  User.findById({_id: req.params.id}, function(err, user) {
+  User.findById({ _id: req.params.id }, function(err, user) {
     if (err) {
       return next(err);
     }
     if (!user) {
-      req.flash('danger', 'Not exist user.');
-      return res.redirect('back');
+      req.flash("danger", "Not exist user.");
+      return res.redirect("back");
     }
 
     // if (user.password !== req.body.current_password) {
@@ -100,8 +104,8 @@ router.put('/:id', needAuth, (req, res, next) => {
     // }
     user.comparePassword(req.body.current_password, function(err, isMatch) {
       if (!isMatch) {
-        req.flash('danger','Password is incorrect');
-        return res.redirect('back');
+        req.flash("danger", "Password is incorrect");
+        return res.redirect("back");
       } else {
         user.name = req.body.name;
         user.email = req.body.email;
@@ -110,28 +114,27 @@ router.put('/:id', needAuth, (req, res, next) => {
         }
 
         user.save(function(err) {
-        if (err) {
-          return next(err);
-        }
-        req.flash('success', 'Updated successfully.');
-        res.redirect('/users/settings');
-      });
-
+          if (err) {
+            return next(err);
+          }
+          req.flash("success", "Updated successfully.");
+          res.redirect("/users/settings");
+        });
       }
     });
   });
 });
 
-router.get('/:id/edit', needAuth, (req, res, next) => {
+router.get("/:id/edit", needAuth, (req, res, next) => {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    res.render('users/edit', {user: user});
+    res.render("users/edit", { user: user });
   });
 });
 
-router.delete('/:id', needAuth, (req, res, next) => {
+router.delete("/:id", needAuth, (req, res, next) => {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
@@ -139,32 +142,32 @@ router.delete('/:id', needAuth, (req, res, next) => {
     user.deleteCheck = 1;
     req.session.user = null;
     user.save(function(err) {
-        if (err) {
-          return next(err);
-        }
-        req.flash('success', 'Deleted Successfully.');
-        res.redirect('/');
+      if (err) {
+        return next(err);
+      }
+      req.flash("success", "Deleted Successfully.");
+      res.redirect("/");
     });
   });
 });
 
-router.post('/', (req, res, next) => {
-  var err = validateForm(req.body, {needPassword: true});
+router.post("/", (req, res, next) => {
+  var err = validateForm(req.body, { needPassword: true });
   if (err) {
-    req.flash('danger', err);
-    return res.redirect('back');
+    req.flash("danger", err);
+    return res.redirect("back");
   }
-  User.findOne({email: req.body.email}, function(err, user) {
+  User.findOne({ email: req.body.email }, function(err, user) {
     if (err) {
       return next(err);
     }
     if (user) {
-      req.flash('danger', 'Email address already exists.');
-      res.redirect('back');
+      req.flash("danger", "Email address already exists.");
+      res.redirect("back");
     }
     var newUser = new User({
       name: req.body.name,
-      email: req.body.email,
+      email: req.body.email
     });
     newUser.password = req.body.password;
 
@@ -172,8 +175,8 @@ router.post('/', (req, res, next) => {
       if (err) {
         return next(err);
       } else {
-        req.flash('success', 'Registered successfully. Please sign in.');
-        res.redirect('/');
+        req.flash("success", "Registered successfully. Please sign in.");
+        res.redirect("/");
       }
     });
   });

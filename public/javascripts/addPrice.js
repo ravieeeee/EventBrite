@@ -1,26 +1,26 @@
 $(function() {
-	$('#ticketPrice').hide();
-	$('#maxParticipants').hide();
+	$("#ticketPrice").hide();
+	$("#maxParticipants").hide();
 	$("input[name='ticketType']:radio").change(function() {
 		var serviceType = this.value;
 
 		if (serviceType == "free") {
-			$('#ticketPrice').hide();
+			$("#ticketPrice").hide();
 		}
 
 		if (serviceType == "paid") {
-			$('#ticketPrice').show();
+			$("#ticketPrice").show();
 		}
 	});
 	$("input[name='maxParticipantsType']:radio").change(function() {
 		var serviceType = this.value;
 
 		if (serviceType == "no consideration") {
-			$('#maxParticipants').hide();
+			$("#maxParticipants").hide();
 		}
 
 		if (serviceType == "set the value") {
-			$('#maxParticipants').show();
+			$("#maxParticipants").show();
 		}
 	});
 });
