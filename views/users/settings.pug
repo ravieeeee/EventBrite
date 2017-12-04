@@ -13,15 +13,16 @@ block content
 					th
 			tbody
 				each user in users
-					tr
-						td 
-							a(href=`/users/${user._id}`)= user.name
-						td= user.email
-						td= moment(user.createdAt).tz('Asia/Seoul').format('MMMM Do YYYY, h:mm:ss a')
-						td
-							a.btn.btn-black.btn-empty(href=`/users/${user._id}/edit`) 
-								| #[i.fa.fa-pencil] Edit
-							| 
-							a.btn.btn-black.btn-empty(href=`/users/${user._id}?_method=DELETE`)
-								| #[i.fa.fa-trash] Delete
+					if user.deleteCheck == 0
+						tr
+							td 
+								a(href=`/users/${user._id}`)= user.name
+							td= user.email
+							td= moment(user.createdAt).tz('Asia/Seoul').format('MMMM Do YYYY, h:mm:ss a')
+							td
+								a.btn.btn-black.btn-empty(href=`/users/${user._id}/edit`) 
+									| #[i.fa.fa-pencil] Edit
+								| 
+								a.btn.btn-black.btn-empty(href=`/users/${user._id}?_method=DELETE`)
+									| #[i.fa.fa-trash] Delete
 		a.btn.btn-black.btn-empty(href='/signup') #[i.fa.fa-plus] Register a new user
