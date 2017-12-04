@@ -51,6 +51,14 @@ router.post("/", needAuth, (req, res, next) => {
     maxP = req.body.maxParticipants;
   }
 
+  if (!req.body.title || !req.body.location || !req.body.starts || !req.body.ends || 
+    !req.body.eventDescription || !req.body.organizerName || !req.body.organizerDescription ||
+    !req.body.eventType || !req.body.eventTopic || !req.body.ticketType || 
+    !ticketP || !maxP || !req.body.maxParticipantsType) {
+    req.flash("danger", "Fill all blanks");
+    return res.redirect("back");
+  }
+
   var newEvent = new Event({
     author: user._id,
     title: req.body.title,
@@ -118,6 +126,14 @@ router.put("/:id", needAuth, (req, res, next) => {
     maxP = 0;
   } else {
     maxP = req.body.maxParticipants;
+  }
+
+  if (!req.body.title || !req.body.location || !req.body.starts || !req.body.ends || 
+    !req.body.eventDescription || !req.body.organizerName || !req.body.organizerDescription ||
+    !req.body.eventType || !req.body.eventTopic || !req.body.ticketType || 
+    !ticketP || !maxP || !req.body.maxParticipantsType) {
+    req.flash("danger", "Fill all blanks");
+    return res.redirect("back");
   }
 
   Event.findById({ _id: req.params.id }, function(err, event) {
