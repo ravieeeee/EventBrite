@@ -40,9 +40,9 @@ block content
 				}
 				$(document).ready(function() {
 					$('#calendar').fullCalendar({
-						editable: true,
 						eventLimit: true, // allow "more" link when too many events
-						events: data
+						events: data,
+						eventColor: '#007bff'
 					});
 				});
 			}

@@ -7,7 +7,7 @@
     "npm": "5.4.2"
   },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "async-error-catcher": "^1.0.1",
@@ -25,7 +25,6 @@
     "mongoose-paginate": "^5.0.3",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
-    "passport-kakao": "0.0.5",
     "pug": "2.0.0-beta11",
     "querystring": "^0.2.0",
     "req-flash": "0.0.3",

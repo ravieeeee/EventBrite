@@ -54,7 +54,7 @@ router.post("/", needAuth, (req, res, next) => {
   if (!req.body.title || !req.body.location || !req.body.starts || !req.body.ends || 
     !req.body.eventDescription || !req.body.organizerName || !req.body.organizerDescription ||
     !req.body.eventType || !req.body.eventTopic || !req.body.ticketType || 
-    !ticketP || !maxP || !req.body.maxParticipantsType) {
+    !req.body.maxParticipantsType) {
     req.flash("danger", "Fill all blanks");
     return res.redirect("back");
   }
