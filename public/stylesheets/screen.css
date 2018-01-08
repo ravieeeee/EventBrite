@@ -259,13 +259,6 @@ body {
   color: white;
 }
 
-.footer {
-  padding-top: 1em;
-  color: #aaa;
-  border-top: .05rem solid #e5e5e5;
-  color: black;
-}
-
 header {
   background-color: #FFFFFF; }
   header .navbar-nav a.nav-link {
