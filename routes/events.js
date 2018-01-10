@@ -14,6 +14,16 @@ function needAuth(req, res, next) {
   }
 }
 
+function is_valid_foam(rb) {
+  const keys = Object.keys(rb)
+  for (let i = 0; i < keys.length; i++) {
+    if (!rb[keys[i]]) {
+      return false
+    }
+  }
+  return true
+}
+
 // 'browse event' 메인
 router.get("/lists", function(req, res, next) {
   Event.find({}, function(err, events) {
@@ -51,10 +61,7 @@ router.post("/", needAuth, (req, res, next) => {
     maxP = req.body.maxParticipants;
   }
 
-  if (!req.body.title || !req.body.location || !req.body.starts || !req.body.ends || 
-    !req.body.eventDescription || !req.body.organizerName || !req.body.organizerDescription ||
-    !req.body.eventType || !req.body.eventTopic || !req.body.ticketType || 
-    !req.body.maxParticipantsType) {
+  if (!is_valid_foam(req.body)) {
     req.flash("danger", "Fill all blanks");
     return res.redirect("back");
   }
@@ -128,10 +135,8 @@ router.put("/:id", needAuth, (req, res, next) => {
     maxP = req.body.maxParticipants;
   }
 
-  if (!req.body.title || !req.body.location || !req.body.starts || !req.body.ends || 
-    !req.body.eventDescription || !req.body.organizerName || !req.body.organizerDescription ||
-    !req.body.eventType || !req.body.eventTopic || !req.body.ticketType || 
-    !ticketP || !maxP || !req.body.maxParticipantsType) {
+  if (!is_valid_foam(req.body)) {
+    console.log(req.body)
     req.flash("danger", "Fill all blanks");
     return res.redirect("back");
   }
