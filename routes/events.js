@@ -1,9 +1,8 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var router = express.Router();
-var User = require("../models/users");
-var Event = require("../models/events");
-var momentTZ = require("moment-timezone");
+const express = require("express");
+const bodyParser = require("body-parser");
+const User = require("../models/users");
+const Event = require("../models/events");
+const router = express.Router();
 
 function needAuth(req, res, next) {
   if (req.session.user) {

@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var User = require("../models/users");
-var Event = require("../models/events");
+const express = require("express");
+const User = require("../models/users");
+const Event = require("../models/events");
+const router = express.Router();
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -9,7 +9,6 @@ router.get("/", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    // console.log(allEvents);
     res.render("index", { allEvents: allEvents, title: "Express" });
   });
 });
@@ -26,7 +25,7 @@ router.post("/signin", function(req, res, next) {
       req.flash("danger", "Invalid username");
       res.redirect("back");
     } else
-      user.comparePassword(req.body.password, function(err, isMatch) {
+      user.comparePassword_two(req.body.password, function(err, isMatch) {
         if (err) {
           req.flash("danger", "comparePassword error");
           res.redirect("back");

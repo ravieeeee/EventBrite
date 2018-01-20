@@ -45,11 +45,16 @@ schema.pre("save", function(next) {
   });
 });
 
-schema.methods.comparePassword = function(candidatePassword, cb) {
+// 로그인 해야되서 살려둔 부분 ! comparePassword로 통합해야함!!!!
+schema.methods.comparePassword_two = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
   });
+};
+
+schema.methods.comparePassword = function(password) {
+  return bcrypt.compare(password, this.password); // return Promise
 };
 
 module.exports = mongoose.model("User", schema);
