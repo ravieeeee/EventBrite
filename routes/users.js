@@ -1,7 +1,7 @@
 const express = require("express")
 const User = require("../models/users")
 const Event = require("../models/events")
-const catchErrors = require('../public/javascripts/async-error')
+const catchErrors = require("../public/javascripts/async-error")
 const router = express.Router()
 
 function needAuth(req, res, next) {
@@ -76,7 +76,7 @@ router.get("/:id", catchErrors(async(req, res, next) => {
   const myEvents = await Event.find({ author: user.id })
   const favoriteEvent = await Event.find({ _id: user.favorite })
 
-  res.render("users/show", { user: user, myEvents: myEvents, fEvents: favoriteEvent})
+  res.render("users/show", { user: user, myEvents: myEvents, fEvents: favoriteEvent })
 }))
 
 
@@ -118,7 +118,8 @@ router.put("/:id", needAuth, catchErrors(async(req, res, next) => {
   user.password = req.body.password
   await user.save()
 
-  req.flash("success", "Updated successfully.")
+  delete req.session.user
+  req.flash("success", "Updated successfully. Please login again.")
   res.redirect("/")
 }))
 
@@ -137,8 +138,8 @@ router.delete("/:id", needAuth, catchErrors(async(req, res, next) => {
 
   user.deleteCheck = 1
   await user.save()
-  req.session.user = undefined
 
+  delete req.session.user
   req.flash("success", "Deleted Successfully.")
   res.redirect("/")
 }))
@@ -163,7 +164,7 @@ router.post("/", catchErrors(async(req, res, next) => {
   const user = await User.findOne({ email: req.body.email })
   if (user) {
     req.flash("danger", "Email address already exists.")
-    res.redirect("back")
+    return res.redirect("back")
   }
 
   var newUser = new User({

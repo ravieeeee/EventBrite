@@ -1,8 +1,10 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const User = require("../models/users");
-const Event = require("../models/events");
-const router = express.Router();
+const express = require("express")
+const bodyParser = require("body-parser")
+const User = require("../models/users")
+const Event = require("../models/events")
+const catchErrors = require("../public/javascripts/async-error")
+const router = express.Router()
+
 
 function needAuth(req, res, next) {
   if (req.session.user) {
@@ -17,235 +19,259 @@ function is_valid_foam(rb) {
   const keys = Object.keys(rb)
   for (let i = 0; i < keys.length; i++) {
     if (!rb[keys[i]]) {
-      return false
+      if (keys[i] !== "ticketPrice" && keys[i] !== "maxParticipants") {
+        return false        
+      }
     }
   }
   return true
 }
 
-// 'browse event' 메인
-router.get("/lists", function(req, res, next) {
-  Event.find({}, function(err, events) {
-    if (err) {
-      return next(err);
-    }
-    res.render("events/lists", { events: events });
-  }); // TODO: pagination?
-});
+function set_default(req) {
+  var ticketPrice, maxParticipants;
 
-// 'create event' 메인
-router.get("/create", needAuth, function(req, res, next) {
-  User.find({}, function(err, users) {
-    if (err) {
-      return next(err);
-    }
-    res.render("events/create");
-  });
-});
-
-// 'make event' 클릭 후
-router.post("/", needAuth, (req, res, next) => {
-  const user = req.session.user;
-  var ticketP;
-  if (req.body.ticketType == "free") {
-    ticketP = 0;
+  if (req.body.ticketType === "free") {
+    ticketPrice = 0
   } else {
-    ticketP = req.body.ticketPrice;
+    ticketPrice = req.body.ticketPrice
   }
 
-  var maxP;
-  if (req.body.maxParticipantsType == "no consideration") {
-    maxP = 0;
+  if (req.body.maxParticipantsType === "no consideration") {
+    maxParticipants = 0
   } else {
-    maxP = req.body.maxParticipants;
+    maxParticipants = req.body.maxParticipants
   }
 
-  if (!is_valid_foam(req.body)) {
-    req.flash("danger", "Fill all blanks");
-    return res.redirect("back");
+  return {
+    ticketP: ticketPrice,
+    maxP: maxParticipants
+  }
+}
+
+
+/* 
+Browse events
+
+이벤트 목록
+*/
+
+// 이동
+router.get("/lists", catchErrors(async(req, res, next) => {
+  const events = await Event.find({})
+  res.render("events/lists", { events: events })
+}))
+
+
+
+
+/* 
+Create event
+
+이벤트 생성
+*/
+
+// 이동
+router.get("/create", needAuth, catchErrors(async(req, res, next) => {
+  res.render("events/create")
+}))
+
+// 이벤트 생성
+router.post("/", needAuth, catchErrors(async(req, res, next) => {
+  const rb = req.body
+  if (!is_valid_foam(rb)) {
+    req.flash("danger", "Fill all blanks")
+    return res.redirect("back")
   }
 
+  const ticketP = set_default(req).ticketP
+  const maxP = set_default(req).maxP
+ 
+  const u = req.session.user
   var newEvent = new Event({
-    author: user._id,
-    title: req.body.title,
-    location: req.body.location,
-    starts: req.body.starts,
-    ends: req.body.ends,
-    eventDescription: req.body.eventDescription,
-    organizerName: req.body.organizerName,
-    organizerDescription: req.body.organizerDescription,
-    eventType: req.body.eventType,
-    eventTopic: req.body.eventTopic,
-    ticketType: req.body.ticketType,
+    author: u._id,
+    title: rb.title,
+    location: rb.location,
+    starts: rb.starts,
+    ends: rb.ends,
+    eventDescription: rb.eventDescription,
+    organizerName: rb.organizerName,
+    organizerDescription: rb.organizerDescription,
+    eventType: rb.eventType,
+    eventTopic: rb.eventTopic,
+    ticketType: rb.ticketType,
     ticketPrice: ticketP,
-    maxParticipantsType: req.body.maxParticipantsType,
+    maxParticipantsType: rb.maxParticipantsType,
     maxParticipants: maxP
   });
+  await newEvent.save()
+  
+  req.flash("success", "Created a event successfully.")
+  res.redirect("/")
+}))
 
-  newEvent.save(function(err) {
-    if (err) {
-      return next(err);
-    } else {
-      req.flash("success", "Created a event successfully.");
-      res.redirect("/");
-    }
-  });
-});
 
-// 개별 event 페이지
-router.get("/:id", (req, res, next) => {
-  Event.findById(req.params.id, function(err, event) {
-    if (err) {
-      return next(err);
-    }
 
-    User.findById(event.author, function(err, user) {
-      if (err) {
-        return next(err);
-      }
-      res.render("events/show", { event: event, user: user });
-    });
-  });
-});
 
-// 개별 event 페이지 - edit
-router.get("/:id/edit", needAuth, (req, res, next) => {
-  Event.findById(req.params.id, function(err, event) {
-    if (err) {
-      return next(err);
-    }
-    res.render("events/edit", { event: event });
-  });
-});
+/* 
+event info
 
-// 'event update' 클릭 후
-router.put("/:id", needAuth, (req, res, next) => {
-  var ticketP;
-  if (req.body.ticketType == "free") {
-    ticketP = 0;
-  } else {
-    ticketP = req.body.ticketPrice;
+개별 이벤트 정보
+*/
+
+// 이동
+router.get("/:id", catchErrors(async(req, res, next) => {
+  const event = await Event.findById(req.params.id)
+  const user = await User.findById(event.author)
+
+  res.render("events/show", { event: event, user: user })
+}))
+
+
+
+
+/* 
+edit event
+
+이벤트 편집(My profile 통해)
+*/
+
+// 이동
+router.get("/:id/edit", needAuth, catchErrors(async(req, res, next) => {
+  const event = await Event.findById(req.params.id)
+  res.render("events/edit", { event: event })
+}))
+
+// 이벤트 편집 처리
+router.put("/:id", needAuth, catchErrors(async(req, res, next) => {
+  const rb = req.body
+  if (!is_valid_foam(rb)) {
+    req.flash("danger", "Fill all blanks")
+    return res.redirect("back")
   }
 
-  var maxP;
-  if (req.body.maxParticipantsType == "no consideration") {
-    maxP = 0;
-  } else {
-    maxP = req.body.maxParticipants;
+  const ticketP = set_default(req).ticketP
+  const maxP = set_default(req).maxP
+  
+  const event = await Event.findById({ _id: req.params.id })
+  event.title = rb.title
+  event.location = rb.location
+  event.starts = rb.starts
+  event.ends = rb.ends
+  event.eventDescription = rb.eventDescription
+  event.organizerName = rb.organizerName
+  event.organizerDescription = rb.organizerDescription
+  event.eventType = rb.eventType
+  event.eventTopic = rb.eventTopic
+  event.ticketType = rb.ticketType
+  event.ticketPrice = ticketP
+  event.maxParticipantsType = rb.maxParticipantsType
+  event.maxParticipants = maxP
+  await event.save()
+
+  req.flash("success", "Updated successfully.")
+  res.redirect("/events/lists")
+}))
+
+
+
+
+/* 
+delete event
+
+이벤트 삭제(My profile 통해)
+*/
+
+// 삭제 처리
+router.delete("/:id", needAuth, catchErrors(async(req, res, next) => {
+  await Event.findOneAndRemove({ _id: req.params.id })
+
+  req.flash("success", "Deleted Successfully.");
+  res.redirect("/events/lists");
+}))
+
+
+
+
+/* 
+participate event
+
+이벤트 참여
+*/
+
+// 참여 처리
+router.get("/:id/participate", needAuth, catchErrors(async(req, res, next) => {
+  const event = await Event.findById(req.params.id)
+  event.participants++
+
+  if (
+    event.maxParticipantsType == "set the value" &&
+    event.maxParticipants < event.participants
+  ) {
+    req.flash("danger", "The event is full")
+    return res.redirect("back")
   }
 
-  if (!is_valid_foam(req.body)) {
-    console.log(req.body)
-    req.flash("danger", "Fill all blanks");
-    return res.redirect("back");
-  }
+  event.participantsList.push(req.session.user.id)
+  
+  await event.save()
 
-  Event.findById({ _id: req.params.id }, function(err, event) {
-    event.title = req.body.title;
-    event.location = req.body.location;
-    event.starts = req.body.starts;
-    event.ends = req.body.ends;
-    event.eventDescription = req.body.eventDescription;
-    event.organizerName = req.body.organizerName;
-    event.organizerDescription = req.body.organizerDescription;
-    event.eventType = req.body.eventType;
-    event.eventTopic = req.body.eventTopic;
-    event.ticketType = req.body.ticketType;
-    (event.ticketPrice = ticketP),
-      (event.maxParticipantsType = req.body.maxParticipantsType),
-      (event.maxParticipants = maxP);
+  req.flash("success", "Complete register.")
+  res.redirect("back")
+}))
 
-    event.save(function(err) {
-      if (err) {
-        return next(err);
-      }
-      req.flash("success", "Updated successfully.");
-      res.redirect("/events/lists");
-    });
-  });
-});
 
-// event delete
-router.delete("/:id", needAuth, (req, res, next) => {
-  Event.findOneAndRemove({ _id: req.params.id }, function(err) {
-    if (err) {
-      return next(err);
-    }
-    req.flash("success", "Deleted Successfully.");
-    res.redirect("/events/lists");
-  });
-});
 
-router.get("/:id/participate", needAuth, (req, res, next) => {
-  Event.findById(req.params.id, function(err, event) {
-    if (err) {
-      return next(err);
-    }
-    event.participants++;
-    if (
-      event.maxParticipantsType == "set the value" &&
-      event.maxParticipants < event.participants
-    ) {
-      req.flash("danger", "The event is full");
-      return res.redirect("back");
-    }
-    event.participantsList.push(req.session.user.id);
-    event.save(function(err) {
-      if (err) {
-        return next(err);
-      } else {
-        req.flash("success", "Complete register.");
-        res.redirect("back");
-      }
-    });
-  });
-});
 
-router.get("/:id/favorite", needAuth, (req, res, next) => {
-  Event.findById(req.params.id, function(err, event) {
-    if (err) {
-      return next(err);
-    }
-    User.findById(req.session.user.id, function(err, user) {
-      if (err) {
-        return next(err);
-      }
-      user.favorite.push(event._id);
-      user.save(function(err) {
-        if (err) {
-          return next(err);
-        } else {
-          req.flash("success", "added favorite list.");
-          res.redirect("back");
-        }
-      });
-    });
-  });
-});
+/* 
+favorite event
 
-// 이벤트 등록자의 이벤트 관리
-router.get("/:id/admin", (req, res, next) => {
-  Event.findById(req.params.id, function(err, event) {
-    if (err) {
-      return next(err);
-    }
-    res.render("events/show_admin", { event: event });
-  });
-});
+지정한 이벤트 favorite 리스트에 등록
+*/
 
-// 이벤트 등록자의 참가자 리스트 확인
-router.get("/:id/participantsList", (req, res, next) => {
-  Event.findById(req.params.id, function(err, event) {
-    if (err) {
-      return next(err);
-    }
-    User.find({ _id: event.participantsList }, function(err, users) {
-      if (err) {
-        return next(err);
-      }
-      res.render("events/show_admin_pL", { users: users });
-    });
-  });
-});
+// favorite 처리
+router.get("/:id/favorite", needAuth, catchErrors(async(req, res, next) => {
+  const event = await Event.findById(req.params.id)
+  const user = await User.findById(req.session.user.id)
+
+  user.favorite.push(event._id)
+  await user.save()
+
+  req.flash("success", "added favorite list.")
+  res.redirect("back")
+}))
+
+
+
+
+/* 
+event admin page
+
+이벤트 등록자의 관리 페이지
+*/
+
+// 이동
+router.get("/:id/admin", catchErrors(async(req, res, next) => {
+  const event = await Event.findById(req.params.id)
+
+  res.render("events/show_admin", { event: event })
+}))
+
+
+
+
+/* 
+participants list
+
+참가자 리스트 확인
+*/
+
+// 이동
+router.get("/:id/participantsList", catchErrors(async(req, res, next) => {
+  const event = await Event.findById(req.params.id)
+  const users = await User.find({ _id: event.participantsList })
+
+  res.render("events/show_admin_pL", { users: users })
+}))
+
 
 module.exports = router;
