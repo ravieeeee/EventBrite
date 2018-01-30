@@ -1,10 +1,31 @@
 extends layout
 
-block content
+block additionalHead
 	link(rel="stylesheet", href="/stylesheets/fullcalendar.css")
 	script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js")
 	script(src="/javascripts/fullcalendar.js")
+	script.
+		$.ajax({
+			url: "https://api.mlab.com/api/1/databases/eventips_db/collections/events?f={%22title%22:1,%22starts%22:1,%22ends%22:1,%22_id%22:0}&apiKey=lRad9en4x9bx79b9Wi6-Cn26eloZipKL",
+			dataType: 'json',
+			success: function(data) {
+				for (let i = 0; i < data.length; i++) {
+					data[i].start = data[i].starts.$date;
+					data[i].end = data[i].ends.$date;
+					delete data[i].starts;
+					delete data[i].ends;
+				}
+				$(document).ready(function() {
+					$('#calendar').fullCalendar({
+						eventLimit: true, // allow "more" link when too many events
+						events: data,
+						eventColor: '#007bff'
+					});
+				});
+			}
+		});
 
+block content
 	.container
 		#carouselExampleSlidesOnly.carousel.slide(data-ride="carousel")
 			.carousel-inner
@@ -26,24 +47,3 @@ block content
 				span#user-location in Eventips
 			br
 			#calendar
-
-	script.
-		$.ajax({
-			url: "https://api.mlab.com/api/1/databases/eventips_db/collections/events?f={%22title%22:1,%22starts%22:1,%22ends%22:1,%22_id%22:0}&apiKey=lRad9en4x9bx79b9Wi6-Cn26eloZipKL",
-			dataType: 'json',
-			success: function(data) {
-				for (let i = 0; i < data.length; i++) {
-					data[i].start = data[i].starts.$date;
-					data[i].end = data[i].ends.$date;
-					delete data[i].starts;
-					delete data[i].ends;
-				}
-				$(document).ready(function() {
-					$('#calendar').fullCalendar({
-						eventLimit: true, // allow "more" link when too many events
-						events: data,
-						eventColor: '#007bff'
-					});
-				});
-			}
-		});
